@@ -1,0 +1,12 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	focus-color: #F4C873;
+	selection-color: #F4C873;
+	roll-over-color: #F4C873;
+}
+	

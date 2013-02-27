@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   xmlns:components="views.components.*"
+				   width="318" height="152" creationComplete="creationCompleteHandler(event)"
+				   doubleClick="openLesson(event)" doubleClickEnabled="true"
+				   dropShadowVisible="true" mouseDown="drag(event)" mouseMove="dragdrop(event)"
+				   mouseOut="mouseOutHandler(event)" mouseOver="mouseOverHandler(event)"
+				   mouseUp="drop(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import model.valueObjects.T_lesson;
+			
+			import mx.controls.Alert;
+			import mx.events.DragEvent;
+			import mx.events.FlexEvent;
+			
+			import org.puremvc.as3.patterns.facade.Facade;
+			
+			import spark.components.BorderContainer;
+			import spark.components.Image;
+			
+			import views.mediators.LessonPlanItemMediator;
+			
+			private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+			private var lessonPlanItemID:int = new int;
+			private var lessonPlanDisplayIndex:int = new int;
+			
+			public static const PLAY_LESSON_PLAN:String = "playLessonPlan";
+			public static const UPDATE_LESSON_PLAN_ITEM:String = "updateLessonPlanItem";
+			public static const REMOVE_LESSON_PLAN_ITEM:String = "removeLessonPlanItem";
+			
+			[Bindable] private var data:T_lesson;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				facade.registerMediator(new LessonPlanItemMediator(this));
+			}
+			
+			/**
+			 * setzt die Lessondaten für das LessonItem
+			 * */
+			public function setLessonData(data:T_lesson):void {
+				this.data = data;
+			}
+			
+			/**
+			 * liefert die Lessondaten des LessonItems
+			 * */
+			public function getLessonData():T_lesson {
+				return data;
+			}
+			
+			/**
+			 * setzt die ID des LessonItems
+			 * */
+			public function setLessonPlanItemID(id:int):void {
+				this.lessonPlanItemID = id;
+			}
+			
+			/**
+			 * liefert die ID des LessonItems
+			 * */
+			public function getLessonPlanItemID():int {
+				return lessonPlanItemID;
+			}
+			
+			/**
+			 * setzt den DisplayIndex des LessonItems (derzeit Inaktiv)
+			 * */
+			public function setLessonPlanDisplayIndex(index:int):void {
+				this.lessonPlanDisplayIndex = index;
+			}
+			
+			/**
+			 * liefert den DisplayIndex des LessonItems
+			 * */
+			public function getLessonPlanDisplayIndex():int {
+				return lessonPlanDisplayIndex;
+			}
+			
+			/**
+			 * diefiniert die Eigenschafte wenn das LessonItem
+			 * gedroppt wird
+			 * */
+			protected function drop(event:MouseEvent):void
+			{
+				stopDrag();
+				this.alpha = 1;
+				this.dispatchEvent(new Event(UPDATE_LESSON_PLAN_ITEM));
+				if((dropTarget.parent as Image).id == "trash") {
+					visible = false;
+					this.dispatchEvent(new Event(REMOVE_LESSON_PLAN_ITEM));			
+				}
+				
+			}
+			
+			/**
+			 * definiert die Eigenschafte wenn ein LessonItem gezogen wird
+			 * */
+			protected function drag(event:MouseEvent):void
+			{
+				startDrag(false,new Rectangle(0,0,parent.width - width ,parent.height - height));		
+			}
+			
+			/**
+			 * definiert die Eigenschaften während des ziehens
+			 * */
+			protected function dragdrop(event:MouseEvent):void
+			{
+				if((dropTarget.parent as Image).id == "trash") {
+					this.alpha = 0.2;
+				}
+
+				event.preventDefault();
+			}
+			
+			/**
+			 * öffnet eine Lesson
+			 * */
+			protected function openLesson(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(PLAY_LESSON_PLAN));
+				
+			}
+			
+			/**
+			 * definiert die Eigenschaften wenn sich die Maus 
+			 * über das LessonItem bewegt
+			 * */
+			protected function mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.backgroundFill = new SolidColor(0x099FF,1);
+			}
+			
+			/**
+			 * definiert die Eigenschaft wenn sich die Maus von dem LessonItem
+			 * entfernt
+			 * */
+			protected function mouseOutHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.backgroundFill = new SolidColor(0xcedbef,1);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:backgroundFill> 
+		<s:SolidColor id="bgcolor" color="#CED8F6" alpha="90"/> 
+	</s:backgroundFill> 
+	<s:Image x="8" y="30" width="92" height="79" source="{data.Thumbnail}"/>
+	<s:Label x="11" y="123" text="Uploader:"/>
+	<s:Label x="110" y="46" fontStyle="normal" fontWeight="bold" text="Song:"/>
+	<s:Label x="111" y="66" fontWeight="bold" text="Genre:"/>
+	<s:Label x="111" y="86" fontWeight="bold" text="Instrument:"/>
+	<s:Label x="111" y="106" fontWeight="bold" text="Difficulty:"/>
+	<s:Label id="Song" x="186" y="46" width="118" height="11" text="{data.Song}"/>
+	<s:Label id="Genre" x="186" y="67" width="118" height="11" text="{data.Genre}"/>
+	<s:Label id="Instrument" x="186" y="87" width="118" height="11"
+			 text="{data.Instrument}"/>
+	<s:Label id="Uploader" x="74" y="123" width="143" height="12" text="{data.Uploader}" fontStyle="italic"/>
+	<s:Label id="Title" x="7" y="7" width="224" height="20" fontSize="14" fontWeight="bold"
+			 text="{data.Lesson}"/>
+	<s:Label x="111" y="26" fontWeight="bold" text="Artist:"/>
+	<s:Label id="Artist" x="186" y="26" width="118" height="11" text="{data.Artist}"/>
+	<components:DifficultyBarSmall id="dif_bar" x="179" y="100" difficulty="{data.Difficulty}"></components:DifficultyBarSmall>
+</s:BorderContainer>

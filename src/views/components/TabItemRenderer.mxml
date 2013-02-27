@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				x="328" y="152" width="810" height="172" contentBackgroundColor="#FFFFFF"
+				dataChange="dataChangeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			
+			
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				icon.width = data.lines[0].length * 9;
+				trackLable.width = icon.width;
+			}
+			
+		]]>
+	</fx:Script>
+	
+
+		<s:BorderContainer id="icon" x="0" y="5" width="803" height="157" backgroundAlpha="0.8"
+						   backgroundColor="#70B2EE" cornerRadius="20" focusColor="#70B2EE">
+			<s:Label id="trackDescriptor" x="20" text="{data.title}" y="6" height="20" fontWeight="bold"/>
+			<s:Label id="tuning" x="64" y="23" height="20" fontWeight="bold" text="{data.tuning}"/>
+			<s:Label id="trackLable" x="6" y="44" width="771" height="101" color="#2B2626"
+					 fontFamily="Lucida Console" fontSize="12" fontWeight="bold"
+					 lineThrough="false" text="{data.content}"/>
+			<s:Label id="tuningLable" x="19" y="23" height="15" fontWeight="bold" text="Tuning:"/>
+		</s:BorderContainer>
+
+	
+	
+	
+</s:ItemRenderer>

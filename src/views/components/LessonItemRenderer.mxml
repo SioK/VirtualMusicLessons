@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				x="328" y="152" width="330" height="148" autoDrawBackground="false"
+				contentBackgroundColor="0x00FF00"
+				width.normal="308" xmlns:components="views.components.*" dataChange="dataChangeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import model.valueObjects.T_lesson;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				difBar.setDifficulty((data as T_lesson).Difficulty);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+	</s:states>
+	
+	<s:postLayoutTransformOffsets>
+		<mx:TransformOffsets id="offsets" x.normal="-6" y.normal="-6" scaleX.normal="1" scaleY.normal="1" />
+	</s:postLayoutTransformOffsets>
+	
+	<s:transitions>
+		<mx:Transition fromState="normal" toState="hovered" autoReverse="true">
+			<s:Animate target="{offsets}" duration="40">
+				<s:SimpleMotionPath property="scaleX" />
+				<s:SimpleMotionPath property="scaleY" />
+				<s:SimpleMotionPath property="x" />
+				<s:SimpleMotionPath property="y" />
+			</s:Animate>
+		</mx:Transition>
+		<mx:Transition fromState="hovered" toState="normal" autoReverse="true">
+			<s:Animate target="{offsets}" duration="40">
+				<s:SimpleMotionPath property="scaleX" />
+				<s:SimpleMotionPath property="scaleY" />
+				<s:SimpleMotionPath property="x" />
+				<s:SimpleMotionPath property="y" />
+			</s:Animate>
+		</mx:Transition>
+	</s:transitions>
+	
+	<!-- http://coenraets.org/blog/2010/01/cool-itemrenderers-made-easy-in-flex-4/ -->
+
+
+	<s:VGroup color="black">
+	</s:VGroup>
+	<s:BorderContainer id="icon" x="0" y="6" width="332" height="136" cornerRadius="20"
+					   width.normal="309" height.normal="142">
+		<s:backgroundFill> 
+			<s:SolidColor color="#CED8F6" alpha="90"/> 
+		</s:backgroundFill> 
+		<s:Image x="10" y="28" width="94" height="85" source="{(data as T_lesson).Thumbnail}"
+				 x.hovered="10" y.hovered="27"
+				 x.normal="10" y.normal="28"/>
+		<s:Label x="11" y="106" text="Uploader:"
+				 x.hovered="11" y.hovered="116"
+				 x.normal="11" y.normal="121"/>
+		<s:Label x="112" y="28" fontWeight="bold" text="Song:"
+				 x.hovered="110" y.hovered="43"
+				 x.normal="110" y.normal="46"/>
+		<s:Label x="111" y="48" fontWeight="bold" text="Genre:"
+				 x.hovered="111" y.hovered="60"
+				 x.normal="111" y.normal="63"/>
+		<s:Label x="111" y="68" fontWeight="bold" text="Instrument:"
+				 x.hovered="111" y.hovered="77"
+				 x.normal="111" y.normal="80"/>
+		<s:Label x="111" y="88" fontWeight="bold" text="Difficulty:"
+				 x.hovered="111" y.hovered="95"
+				 x.normal="111" y.normal="98"/>
+		<s:Label id="Artist" width="118" height="11"
+				 x.hovered="186" y.hovered="26" x.normal="179" y.normal="30" text="{(data as T_lesson).Artist}"/>
+		<s:Label id="Song" x="186" y="28" width="118" height="11" text="{(data as T_lesson).Song}"
+				 x.hovered="186" y.hovered="43"
+				 x.normal="179" y.normal="46"/>
+		<s:Label id="Genre" x="186" y="49" width="118" height="11" text="{(data as T_lesson).Genre}"
+				 x.hovered="186" y.hovered="61"
+				 x.normal="179" y.normal="63"/>
+		<s:Label id="Instrument" x="186" y="69" width="118" height="11"
+				 text="{(data as T_lesson).Instrument}"
+				 x.hovered="186" y.hovered="78"
+				 x.normal="179" y.normal="80"/>
+		<s:Label id="Uploader" x="74" y="106" width="143" height="12" fontStyle="italic"
+				 text="{(data as T_lesson).Uploader}"
+				 x.hovered="74" y.hovered="116"
+				 x.normal="74" y.normal="121"/>
+		<s:Label id="Title" x="7" y="7" width="224" height="20" fontSize="14" fontWeight="bold"
+				 text="{(data as T_lesson).Lesson}"/>
+		<s:Label x="112" y="27" fontWeight="bold" text="Artist:"
+				 x.hovered="111" y.hovered="27"
+				 x.normal="111" y.normal="30"/>
+		<components:DifficultyBarSmall id="difBar" difficulty="{(data as T_lesson).Difficulty}"
+									   x.hovered="178" y.hovered="88"
+									   x.normal="172" y.normal="91"></components:DifficultyBarSmall>
+	</s:BorderContainer>
+
+	
+	
+</s:ItemRenderer>
+

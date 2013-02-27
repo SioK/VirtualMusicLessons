@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="116" height="24"
+		 creationComplete="draw(event)">
+	<fx:Declarations>
+		<!-- Platzieren Sie nichtvisuelle Elemente (z. B. Dienste, Wertobjekte) hier -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.graphics.SolidColor;
+			
+			public var difficulty:int;
+			
+			private var activeColor:SolidColor = new SolidColor(0xd03b2c,1.0);
+			private var inactiveColor:SolidColor = new SolidColor(0x4a3a38,1.0);
+			
+			public function setDifficulty(difficulty:int):void {
+				this.difficulty = difficulty;
+				
+				switch(difficulty)
+				{
+					case 1:
+						dif_1.backgroundFill = activeColor;
+						dif_2.backgroundFill = inactiveColor;
+						dif_3.backgroundFill = inactiveColor;
+						dif_4.backgroundFill = inactiveColor;
+						dif_5.backgroundFill = inactiveColor;
+						break;
+					case 2:
+						dif_1.backgroundFill = activeColor;
+						dif_2.backgroundFill = activeColor;
+						dif_3.backgroundFill = inactiveColor;
+						dif_4.backgroundFill = inactiveColor;
+						dif_5.backgroundFill = inactiveColor;
+						break;
+					case 3:
+						dif_1.backgroundFill = activeColor;
+						dif_2.backgroundFill = activeColor;
+						dif_3.backgroundFill = activeColor;
+						dif_4.backgroundFill = inactiveColor;
+						dif_5.backgroundFill = inactiveColor;
+						break;
+					case 4:
+						dif_1.backgroundFill = activeColor;
+						dif_2.backgroundFill = activeColor;
+						dif_3.backgroundFill = activeColor;
+						dif_4.backgroundFill = activeColor;
+						dif_5.backgroundFill = inactiveColor;
+						break;
+					case 5:
+						dif_1.backgroundFill = activeColor;
+						dif_2.backgroundFill = activeColor;
+						dif_3.backgroundFill = activeColor;
+						dif_4.backgroundFill = activeColor;
+						dif_5.backgroundFill = activeColor;
+						break;
+					default:
+						
+				}
+			}
+			
+			private function draw(event:Event):void {
+				
+				setDifficulty(difficulty);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:BorderContainer id="dif_1"  cornerRadius="20"  x="8" y="4" width="15" height="15" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_2" cornerRadius="20"  x="29" y="4" width="15" height="15" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_3" cornerRadius="20"  x="50" y="4" width="15" height="15" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_4" cornerRadius="20"  x="71" y="4" width="15" height="15" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_5" cornerRadius="20"  x="92" y="4" width="15" height="15" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+</s:Group>

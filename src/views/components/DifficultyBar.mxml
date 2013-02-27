@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="154" height="32" click="holdSelectionHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+
+			import mx.graphics.SolidColor;
+			
+			private var activeColor:SolidColor = new SolidColor(0xd03b2c,1.0);
+			private var inactiveColor:SolidColor = new SolidColor(0x4a3a38,1.0);
+			
+			private var selection:int = 1;
+			private var clickedBefore:Boolean = new Boolean;
+			
+			public function get currentSelection():int {
+				return selection;
+			}
+			
+			protected function dif_5_mouseOverHandler(event:MouseEvent):void
+			{
+				if(!clickedBefore) {
+					selection = 5;
+					dif_5.backgroundFill = activeColor;
+					dif_4.backgroundFill = activeColor;
+					dif_3.backgroundFill = activeColor;
+					dif_2.backgroundFill = activeColor;
+					dif_1.backgroundFill = activeColor;
+				}
+			}
+			
+			protected function dif_4_mouseOverHandler(event:MouseEvent):void
+			{
+				if(!clickedBefore) {
+					selection = 4;
+					dif_5.backgroundFill = inactiveColor;
+					dif_4.backgroundFill = activeColor;
+					dif_3.backgroundFill = activeColor;
+					dif_2.backgroundFill = activeColor;
+					dif_1.backgroundFill = activeColor;
+				}
+			}
+			
+			protected function dif_3_mouseOverHandler(event:MouseEvent):void
+			{
+			
+				if(!clickedBefore) {
+					selection = 3;
+					dif_5.backgroundFill = inactiveColor;
+					dif_4.backgroundFill = inactiveColor;
+					dif_3.backgroundFill = activeColor;
+					dif_2.backgroundFill = activeColor;
+					dif_1.backgroundFill = activeColor;
+				}
+			}
+			
+			protected function dif_2_mouseOverHandler(event:MouseEvent):void
+			{
+				if(!clickedBefore) {
+					selection = 2;
+					dif_5.backgroundFill = inactiveColor;
+					dif_4.backgroundFill = inactiveColor;
+					dif_3.backgroundFill = inactiveColor;
+					dif_2.backgroundFill = activeColor;
+					dif_1.backgroundFill = activeColor;
+				}
+			}
+			
+			protected function dif_1_mouseOverHandler(event:MouseEvent):void
+			{				
+				if(!clickedBefore) {
+					selection = 1;
+					dif_5.backgroundFill = inactiveColor;
+					dif_4.backgroundFill = inactiveColor;
+					dif_3.backgroundFill = inactiveColor;
+					dif_2.backgroundFill = inactiveColor;
+					dif_1.backgroundFill = activeColor;
+				}
+			}
+			
+			protected function holdSelectionHandler(event:MouseEvent):void
+			{
+				if(clickedBefore) {
+					clickedBefore = false;
+				} else {
+					clickedBefore = true;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Platzieren Sie nichtvisuelle Elemente (z. B. Dienste, Wertobjekte) hier -->
+	</fx:Declarations>
+	<s:BorderContainer id="dif_1" cornerRadius="20" mouseOver="dif_1_mouseOverHandler(event)" x="14" y="7" width="20" height="20" backgroundColor="#D03B2C">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_2" cornerRadius="20" mouseOver="dif_2_mouseOverHandler(event)" x="41" y="7" width="20" height="20" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_3" cornerRadius="20" mouseOver="dif_3_mouseOverHandler(event)" x="68" y="7" width="20" height="20" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_4" cornerRadius="20" mouseOver="dif_4_mouseOverHandler(event)" x="94" y="7" width="20" height="20" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+	<s:BorderContainer id="dif_5" cornerRadius="20" mouseOver="dif_5_mouseOverHandler(event)" x="121" y="7" width="20" height="20" backgroundColor="#4A3A38">
+	</s:BorderContainer>
+</s:Group>

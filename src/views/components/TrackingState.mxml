@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="98" height="26" contentBackgroundColor="#4A3A38">
+	<fx:Declarations>
+		<!-- Platzieren Sie nichtvisuelle Elemente (z. B. Dienste, Wertobjekte) hier -->
+	</fx:Declarations>
+	<s:BorderContainer id="state1" x="8" y="5" width="16" height="16" cornerRadius="20" backgroundColor="#E2321B">
+	</s:BorderContainer>
+	<s:BorderContainer id="state2" x="40" y="5" width="16" height="16" cornerRadius="20" backgroundColor="#E2321B">
+	</s:BorderContainer>
+	<s:BorderContainer id="state3" x="71" y="5" width="16" height="16" cornerRadius="20" backgroundColor="#E2321B">
+	</s:BorderContainer>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.graphics.SolidColor;
+			private static const TRACKED_COLOR:SolidColor = new SolidColor(0x33b558,1.0);
+			private static const UNTRACKED_COLOR:SolidColor = new SolidColor(0xE2321B,1.0);
+			
+			public function perspective1Tracked(tracked:Boolean):void
+			{
+				if(tracked) {
+					state1.backgroundFill = TRACKED_COLOR;
+				} else {
+					state1.backgroundFill = UNTRACKED_COLOR;
+				}
+			}
+			
+			public function perspective2Tracked(tracked:Boolean):void
+			{
+				if(tracked) {
+					state2.backgroundFill = TRACKED_COLOR;
+				} else {
+					state2.backgroundFill = UNTRACKED_COLOR;
+				}
+			}
+			
+			public function perspective3Tracked(tracked:Boolean):void
+			{
+				if(tracked) {
+					state3.backgroundFill = TRACKED_COLOR;
+				} else {
+					state3.backgroundFill = UNTRACKED_COLOR;
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	
+</s:Group>

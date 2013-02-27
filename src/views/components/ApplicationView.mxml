@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:net="flash.net.*"
+		 xmlns:components="views.components.*"
+		 contentBackgroundColor="#FFFFFF" creationComplete="creationComplete_Handler(event)">
+	
+	<fx:Metadata>
+		[Event (name="logout", type="controller.CustomEvent")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.valueObjects.LessonVO;
+			import model.valueObjects.T_genre;
+			import model.valueObjects.T_instrument;
+			import model.valueObjects.T_lesson;
+			
+			import mx.controls.Alert;
+			import mx.core.IUIComponent;
+			import mx.events.DragEvent;
+			import mx.events.IndexChangedEvent;
+			import mx.managers.DragManager;
+			
+			import org.osmf.events.TimeEvent;
+			
+			import spark.components.VideoDisplay;
+			import spark.events.IndexChangeEvent;
+			import spark.events.TextOperationEvent;
+			
+			import views.mediators.ApplicationMediator;
+			import views.mediators.LessonPlanMediator;
+			import views.mediators.LessonViewerMediator;
+			import views.mediators.UploadLessonMediator;
+			
+			
+			private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+			
+			[Bindable] public var lessonVO:LessonVO = new LessonVO;	
+			[Bindable] public var currentViewableLesson:T_lesson;
+			
+			public static const UPDATEVIEW:String = "updateView";
+			public static const UPLOAD_LESSON:String = "uploadLesson";
+			public static const PLAY_LESSON_LIST:String = "playLessonList";
+			public static const UPLOAD_VIDEO1:String = "upload1Video";
+			public static const UPLOAD_VIDEO2:String = "upload2Video";
+			public static const UPLOAD_VIDEO3:String = "upload3Video";
+			public static const UPLOAD_TAB:String = "openTab";
+			public static const DROP_LESSON:String = "dropLesson";
+			public static const REMOVE_LESSON_PLAN_ITEM:String = "removeLessonPlanItem";
+			public static const PULLINSTRUMENTS:String ="pullInstrumens";
+			public static const PULLGENRES:String ="pullGenres";
+			public static const LOADCATEGORIES:String ="loadCategories";
+			public static const LOADDETAILS:String ="loadDetails";
+			public static const FILTER:String ="filter";
+			public static const SEARCH:String ="search";
+			public static const LOGOUT:String ="logout";
+			public static const CHANGE_PERSPECTIVE:String ="selectedPerspective";
+			public static const CHANGE_PREVIEW_PERSPECTIVE:String ="changePreviewPerspective";
+			public static const SET_PLAY_INTERVALL:String = "setPlayIntervall";
+			public static const SET_TRACKING_SEGMENT:String = "setTrackingSegment";
+			public static const CANCEL_TRACKING:String = "cancelTracking";
+			public static const UPLOAD_TRACKING_POINTS:String = "uploadTrackingPoints";
+			public static const REMOVE_TRACKING_SEGMENT:String = "removeTrackingSegment";
+			public static const TAB_CONTAINER_CHANGED:String = "tabContainerChanged";
+			public static const SET_START_TIME:String = "setStartTime";
+			public static const SET_END_TIME:String = "setEndTime";
+			public static const CURRENT_PREVIEW_PLAYER_TIME:String = "currentPreviewPlayerTime";
+			
+			
+			private function creationComplete_Handler(event:Event):void
+			{
+				facade.registerMediator(new ApplicationMediator(this));
+				facade.registerMediator(new LessonPlanMediator(this));
+				facade.registerMediator(new LessonViewerMediator(this));
+				facade.registerMediator(new UploadLessonMediator(this));
+				this.dispatchEvent(new Event(UPDATEVIEW));	
+			}	
+			
+			/**
+			 * leitet das Uploaden der Lesson ein
+			 * */
+			protected function uploadLesson(event:MouseEvent):void
+			{
+				lessonVO.Difficulty = dif_bar.currentSelection;
+				this.dispatchEvent(new Event(UPLOAD_LESSON));
+			}
+			
+			/**
+			 * ändert die aktuelle Lesson aus der LessonList und
+			 * leitet das abspielen der Lesson ein
+			 * */
+			protected function listItemChange(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(PLAY_LESSON_LIST));
+				
+			}
+			
+			/**
+			 * öffnet das erste Video und bereitet es für den
+			 * Upload vor
+			 * */
+			protected function video1Open(event:MouseEvent):void
+			{
+				
+				this.dispatchEvent(new Event(UPLOAD_VIDEO1));
+				
+			}
+			
+			/**
+			 * öffnet das zweite Video und bereitet es für den
+			 * Upload vor
+			 * */
+			protected function video2Open(event:MouseEvent):void
+			{
+				
+				this.dispatchEvent(new Event(UPLOAD_VIDEO2));
+				
+			}
+			
+			/**
+			 * öffnet das dritte Video und bereitet es für den
+			 * Upload vor
+			 * */
+			protected function video3Open(event:MouseEvent):void
+			{
+				
+				this.dispatchEvent(new Event(UPLOAD_VIDEO3));
+				
+			}
+			
+			/**
+			 * öffnet den Tab und bereitet ihn für den
+			 * Upload vor
+			 * */
+			protected function openTab(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(UPLOAD_TAB));
+				
+			}
+			
+			/**
+			 * leitet das draggen der Lesson ein
+			 * */
+			protected function lessonPlan_dragEnterHandler(event:DragEvent):void
+			{
+				event.preventDefault();
+				DragManager.acceptDragDrop(event.target as BorderContainer);
+				DragManager.showFeedback(DragManager.LINK);
+			}
+			
+			/**
+			 * definiert den Zustand während des draggens
+			 * */
+			protected function lessonPlan_dragOverHandler(event:DragEvent):void
+			{
+				event.preventDefault();	
+			}
+			
+			
+			/**
+			 * leitet das Loslassen der Lesson ein
+			 * */
+			protected function lessonPlan_dragDropHandler(event:DragEvent):void
+			{
+				this.dispatchEvent(event);
+			}
+			
+			/**
+			 * leitet das Downloaden der Instrumenteninformationen
+			 * ein
+			 * */
+			protected function loadInstruments(event:Event):void
+			{
+				this.dispatchEvent(new Event(PULLINSTRUMENTS));
+				
+			}
+			
+			/**
+			 * leitet das Downloaden der Genreinformationen
+			 * ein
+			 * */
+			protected function loadGenre(event:Event):void
+			{
+				this.dispatchEvent(new Event(PULLGENRES));
+			}
+			
+			/**
+			 * signalisiert das sich ein Instrument in der DropDownListe
+			 * geändert hat
+			 * */
+			protected function instrumentChangeHandler(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(PULLINSTRUMENTS));
+			}
+			
+			/**
+			 * signalisiert das sich ein Genre in der DropDownListe
+			 * geändert hat
+			 * */
+			protected function genreChangeHandler(event:MouseEvent):void
+			{
+				lessonVO.Genre = (genre_dropDown.selectedItem as T_genre).Genre;
+			}
+			
+			
+			/**
+			 * löst das Downloaden der Kategorien aus
+			 * */
+			protected function loadCategories(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(LOADCATEGORIES));
+			}
+			
+			/**
+			 * löst das Downloaden der Details aus
+			 * */
+			protected function loadDetails(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(LOADDETAILS));
+			}
+			
+			/**
+			 * registriert die Veränderung eines Filters 
+			 * */
+			protected function search(event:IndexChangeEvent):void
+			{
+				this.dispatchEvent(new Event(FILTER));
+				
+			}
+			
+			/**
+			 * wird ausgelöst wenn sich die Sucheingabe ändert
+			 * */
+			protected function searchTextChanged(event:TextOperationEvent):void
+			{
+				this.dispatchEvent(new Event(SEARCH));
+			}
+			
+			/**
+			 * ein Aufruf dieser Methode löst das Ausloggen aus
+			 * */
+			protected function logout(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(LOGOUT));
+			}
+			
+			/**
+			 * wird aufgerufen wenn sich die Videoperspektive ändert
+			 * */
+			protected function selectPerspective(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(CHANGE_PERSPECTIVE));
+			}
+			
+			/**
+			 * wird aufgerufen wenn sich die Preview-Videoperspektive ändert
+			 * */
+			protected function changePreviewPerspective(event:IndexChangeEvent):void
+			{
+				this.dispatchEvent(new Event(CHANGE_PREVIEW_PERSPECTIVE));
+			}
+			
+			/**
+			 * wird ausgelöst wenn ein Track des Tabs ausgewählt wird
+			 * und leitet den Prozess ein, dass ein neues Zeitintervall
+			 * auf den Player gesetzt wird
+			 * */
+			protected function tabList_clickHandler(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(SET_PLAY_INTERVALL));
+			}
+			
+			/**
+			 * wird ausgelöst wenn der Nutzer ein neues TrackingSegment festlegt
+			 * */
+			protected function setTrackingSegment(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(SET_TRACKING_SEGMENT));
+			}
+			
+			/**
+			 * leitet das Uploaden der TrackingPoints ein
+			 * */
+			protected function uploadTrackingPointsHandler(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(UPLOAD_TRACKING_POINTS));
+			}
+			
+			/**
+			 * wird ausgelöst wenn der Nutzer ein TrackingSegment entfernt
+			 * */
+			protected function removeTrackingSegment(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(REMOVE_TRACKING_SEGMENT));
+			}
+			
+			/**
+			 * wird ausgelöst wenn sich die View der Applikation ändert
+			 * vorhandene View: LessonPlan, LessonViewer und UploadLesson
+			 * */
+			protected function tabNavigator_changeHandler(event:IndexChangedEvent):void
+			{
+				this.dispatchEvent(new Event(TAB_CONTAINER_CHANGED));
+			}
+
+			/**
+			 * wird ausgelöst wenn sich die aktuelle Zeit des Preview Players verändert
+			 * */
+			protected function previewPlayer_currentTimeChangeHandler(event:TimeEvent):void
+			{
+				this.dispatchEvent(new Event(CURRENT_PREVIEW_PLAYER_TIME));
+			}
+			
+			/**
+			 * ein Auslösen dieser Methode leitet das Setzen der Startzeit 
+			 * für ein Zeitintervall ein
+			 * */
+			protected function setStartTime(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(SET_START_TIME));
+			}
+			
+			
+			/**
+			 * ein Auslösen dieser Methode leitet das Setzen der Endzeit 
+			 * für ein Zeitintervall ein
+			 * */
+			protected function activateEndTime(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(SET_END_TIME));
+			}
+			
+			/**
+			 * ein Auslösen bricht das Setzen der TrackingPoints ab
+			 * */
+			protected function cancelTracking(event:MouseEvent):void
+			{
+				this.dispatchEvent(new Event(CANCEL_TRACKING));
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Binding destination="lessonVO.Lesson" source="input_lessonName.text"/>
+	<fx:Binding destination="lessonVO.Artist" source="input_artist.text"/>
+	<fx:Binding destination="lessonVO.Song" source="input_song.text"/>
+	<fx:Binding destination="lessonVO.Description" source="input_description.text"/>
+	<fx:Binding destination="lessonVO.Video1_Path" source="input_videoName1.text"/>
+	<fx:Binding destination="lessonVO.Video2_Path" source="input_videoName1.text"/>
+	<fx:Binding destination="lessonVO.Video3_Path" source="input_videoName1.text"/>
+	<fx:Binding destination="lessonVO.Tab_Path" source="input_tabReference.text"/>
+	
+
+	
+
+	<fx:Declarations>
+		
+		<!--UPLOAD LESSON VALIDATORS -->
+		<net:FileReference id="fileReference"/>
+		<mx:StringValidator id="lessonNameValidator" minLength="5" maxLength="20" property="text" required="true" source="{input_lessonName}">
+		</mx:StringValidator>
+		<mx:StringValidator id="artistValidator" property="text" maxLength="20" required="true" source="{input_artist}">
+		</mx:StringValidator>
+		<mx:StringValidator id="songValidator" property="text" maxLength="20" required="true" source="{input_song}">
+		</mx:StringValidator>
+		<mx:StringValidator id="descriptionValidator" minLength="10" maxLength="300" property="text" required="true" source="{input_description}">
+		</mx:StringValidator>
+		<mx:StringValidator id="tabReferenceValidator" property="text" required="true" source="{input_tabReference}">
+		</mx:StringValidator>
+		<mx:StringValidator id="videoName1Validator" property="text" required="true" source="{input_videoName1}">
+		</mx:StringValidator>
+		<mx:StringValidator id="videoName2Validator" property="text" required="true" source="{input_videoName2}">
+		</mx:StringValidator>
+		<mx:StringValidator id="videoName3Validator" property="text" required="true" source="{input_videoName3}">
+		</mx:StringValidator>
+		<s:NumberValidator id="instrumentValidator" property="selectedIndex" minValue="0" source="{instrument_dropDown}">
+		</s:NumberValidator>
+		<s:NumberValidator id="genreValidator" property="selectedIndex" minValue="0" source="{genre_dropDown}">
+		</s:NumberValidator>
+		
+	</fx:Declarations>
+	
+	
+	<!-- Header Informations and Logout -->
+	<s:Label id="loginInfo" x="14" y="24" color="#2A82BF" fontWeight="bold"/>
+	
+	<!-- Application Tab Control -->
+	<mx:TabNavigator id="tabNavigator" x="14" y="53" width="1194" height="820"
+					 change="tabNavigator_changeHandler(event)" chromeColor="#549ACB">
+		
+		<!-- Lesson Plan -->
+		<s:NavigatorContent width="100%" height="100%" label="LessonPlan">
+			<s:Panel x="10" y="10" width="1155" height="754" backgroundColor="#FFFFFF"
+					 title="LessonPlan">
+				<s:BorderContainer id="lessonPlan" x="10" y="10" width="1133" height="701"
+								   backgroundAlpha="0.3" backgroundColor="#549ACB"
+								   contentBackgroundColor="#549ACB"
+								   dragDrop="lessonPlan_dragDropHandler(event)"
+								   dragEnter="lessonPlan_dragEnterHandler(event)"
+								   dragOver="lessonPlan_dragOverHandler(event)">
+					<s:Image id="trash" x="4" y="557" width="171" height="133" source="assets/trash.png"/>
+				</s:BorderContainer>
+			</s:Panel>
+		</s:NavigatorContent>
+		
+		<!-- Lesson Viewer -->
+		<s:NavigatorContent width="100%" height="100%" label="LessonViewer">
+			<s:VideoPlayer id="videoPlayer" x="14" y="52" width="640" height="414"
+						   source="{currentViewableLesson.Video1_Path}"/>
+			<s:Label x="10" y="19" fontSize="16" fontWeight="bold" text="{currentViewableLesson.Lesson}"/>
+			<s:BorderContainer x="666" y="53" width="456" height="414" backgroundAlpha="0.3"
+							   backgroundColor="#549ACB" cornerRadius="10">
+				<s:Label x="11" y="36" fontWeight="bold" text="Perspectives"/>
+				<s:BorderContainer x="193" y="204" width="238" height="188" backgroundAlpha="0.9"
+								   backgroundColor="#549ACB" cornerRadius="10"
+								   dropShadowVisible="true">
+					<s:Label x="8" y="9" width="220" height="166" text="{currentViewableLesson.Description}"/>
+				</s:BorderContainer>
+				<s:Label x="193" y="178" fontWeight="bold" text="Description:"/>
+				<s:List id="perspectives" x="10" y="57" width="168" height="338"
+						click="selectPerspective(event)" contentBackgroundAlpha="0.9"
+						contentBackgroundColor="#549ACB"
+						itemRenderer="views.components.PerspectiveItemRenderer"></s:List>
+				<s:Label x="198" y="42" fontWeight="bold" text="Artist:"/>
+				<s:Label x="197" y="62" fontWeight="bold" text="Song:"/>
+				<s:Label x="198" y="82" fontWeight="bold" text="Instrument:"/>
+				<s:Label x="198" y="102" fontWeight="bold" text="Genre:"/>
+				<s:Label x="198" y="139" fontWeight="bold" text="Difficulty:"/>
+				<s:Label x="6" y="12" fontStyle="normal" fontWeight="bold" text="Uploader:"/>
+				<s:Label id="view_Artist" x="284" y="42" text="{currentViewableLesson.Artist}"/>
+				<s:Label id="view_Song" x="284" y="62" text="{currentViewableLesson.Song}"/>
+				<s:Label id="view_Instrument" x="284" y="82" text="{currentViewableLesson.Instrument}"/>
+				<s:Label id="view_Genre" x="284" y="102" text="{currentViewableLesson.Genre}"/>
+				<s:Label id="view_Uploader" x="71" y="12" text="{currentViewableLesson.Uploader}"/>
+				<components:DifficultyBarSmall id="dif_bar_small" x="276" y="132"></components:DifficultyBarSmall> 
+			</s:BorderContainer>
+			<s:Label x="14" y="497" fontSize="22" text="TAB:"/>
+			<s:List id="tabList" x="14" y="526" width="1108" height="250" borderVisible="true"
+					click="tabList_clickHandler(event)" contentBackgroundAlpha="0.9"
+					contentBackgroundColor="#549ACB" horizontalScrollPolicy="on"
+					itemRenderer="views.components.TabItemRenderer" verticalScrollPolicy="auto"></s:List>
+		</s:NavigatorContent>
+		
+		<!-- Upload Lesson GUI -->
+		
+		<!-- Meta Information Form -->
+		<s:NavigatorContent width="100%" height="100%" label="UploadLesson">
+			<s:Panel id="metaPanel" x="10" y="25" width="546" height="275" backgroundAlpha="0.3"
+					 backgroundColor="#549ACB" title="Step 1: Meta Informations">
+				<s:TextInput id="input_lessonName" x="139" y="6" width="163" chromeColor="#549ACB"
+							 contentBackgroundColor="#549ACB"/>
+				<s:TextInput id="input_artist" x="139" y="32" width="163"
+							 contentBackgroundColor="#549ACB"/>
+				<s:TextInput id="input_song" x="139" y="58" width="163"
+							 contentBackgroundColor="#549ACB"/>
+				<s:DropDownList id="instrument_dropDown" x="139" y="116" width="163" requireSelection="true" creationComplete="loadInstruments(event)" click="instrumentChangeHandler(event)" labelField="Instrument"></s:DropDownList>
+				<s:DropDownList id="genre_dropDown" x="139" labelField="Genre" y="152" width="163" requireSelection="true" creationComplete="loadGenre(event)" click="genreChangeHandler(event)"></s:DropDownList>
+				<components:DifficultyBar id="dif_bar" x="138" y="185" width="146" height="35"></components:DifficultyBar>
+				<s:TextArea id="input_description" x="319" y="32" width="215" height="189"
+							borderColor="#FFFFFF" contentBackgroundAlpha="0.9"
+							contentBackgroundColor="#549ACB"/>
+				<s:Label x="36" y="10" width="73" fontWeight="bold" text="Filename*:"/>
+				<s:Label x="36" y="34" fontWeight="bold" text="Artist:"/>
+				<s:Label x="36" y="58" fontWeight="bold" text="Song:"/>
+				<s:Label x="36" y="116" fontWeight="bold" text="Instrument*:"/>
+				<s:Label x="36" y="152" fontWeight="bold" text="Genre*:"/>
+				<s:Label x="36" y="198" fontWeight="bold" text="Difficulty:"/>
+				<s:Label x="319" y="10" fontWeight="bold" text="Short Description:"/>
+			</s:Panel>
+			
+			<!-- Upload Manager Form -->
+			<s:Panel x="564" y="25" width="587" height="275" backgroundAlpha="0.3"
+					 backgroundColor="#549ACB" title="Step 2: Upload Manager">
+				<s:Button id="uploadLesson_btn" x="464" y="209" label="Upload Lesson"
+						  click="uploadLesson(event)"/>
+				<mx:TabNavigator id="uploadVideosNavigator" x="20" y="80" width="479" height="108"
+								 backgroundAlpha="0.2" backgroundColor="#549ACB"
+								 contentBackgroundColor="#549ACB" dropShadowVisible="true">
+					<s:NavigatorContent width="100%" height="100%" label="Video Perspective 1">
+						<s:Label x="10" y="10" fontWeight="bold" text="Path to Perspective 1:"/>
+						<s:TextInput id="input_videoName1" x="79" y="37" width="235" height="20"
+									 contentBackgroundColor="#549ACB" editable="false"/>
+						<s:Button id="btn_open_vid1" x="322" y="36" label="Select File" click="video1Open(event)"/>
+						<s:Label x="17" y="42" fontSize="12" fontWeight="bold" text="Filename:"/>
+					</s:NavigatorContent>
+					<s:NavigatorContent width="100%" height="100%" label="Video Perspective 2"
+										contentBackgroundColor="#549ACB">
+						<s:Label x="10" y="10" fontWeight="bold" text="Path to Perspective 2:"/>
+						<s:TextInput id="input_videoName2" x="79" y="37" width="235" height="20"
+									 contentBackgroundColor="#549ACB" editable="false"/>
+						<s:Button id="btn_open_vid2" x="322" y="36" label="Select File" click="video2Open(event)"/>
+						<s:Label x="17" y="42" fontSize="12" fontWeight="bold" text="Filename:"/>
+					</s:NavigatorContent>
+					<s:NavigatorContent width="100%" height="100%" label="Video Perspective 3"
+										contentBackgroundColor="#549ACB">
+						<s:Label x="10" y="10" fontWeight="bold" text="Path to Perspective 3:"/>
+						<s:TextInput id="input_videoName3" x="79" y="37" width="235" height="20"
+									 contentBackgroundColor="#549ACB" editable="false"/>
+						<s:Button id="btn_open_vid3" x="322" y="36" label="Select File" click="video3Open(event)"/>
+						<s:Label x="17" y="42" fontSize="12" fontWeight="bold" text="Filename:"/>
+					</s:NavigatorContent>
+				</mx:TabNavigator>
+				<s:Label x="20" y="14" fontWeight="bold" text="Path to Tab Reference:"/>
+				<s:TextInput id="input_tabReference" x="100" y="37" width="224" height="20"
+							 contentBackgroundColor="#549ACB" editable="false"/>
+				<s:Button id="btn_open_tab" x="332" y="36" label="Select File" click="openTab(event)"/>
+				<s:Label x="37" y="41" fontSize="12" fontWeight="bold" text="Filename:"/>
+			</s:Panel>
+			
+			<!-- Tracking Manager Form  -->
+			<s:Panel x="10" y="328" width="1141" height="404" backgroundAlpha="0.3"
+					 backgroundColor="#549ACB" title="Step 3: Tracking Manager">
+				<s:VideoPlayer id="previewPlayer" x="10" y="70" width="445" height="295"
+							   autoPlay="false"
+							   currentTimeChange="previewPlayer_currentTimeChangeHandler(event)"
+							   source=""/>
+				<!--source="{(videoList.selectedItem as T_lesson).Video1_Path}"-->
+				<s:Label x="12" y="25" fontWeight="bold" text="Select Videoperspective:"/>
+				<s:Label x="11" y="54" fontWeight="bold" text="Video Preview:"/>
+				<s:DropDownList id="previewPerspectiveSelection" x="161" y="16" width="294" labelField="Perspective" itemRenderer="views.components.PerspectiveItemRendererSmall" change="changePreviewPerspective(event)"></s:DropDownList>
+				<s:BorderContainer x="488" y="20" width="604" height="27" backgroundAlpha="0.2"
+								   dropShadowVisible="false">
+					<mx:LinkButton id="setTrackingPoint" x="8" y="2" label="Set Tracking Segment" fontSize="12"
+								   fontWeight="bold" paddingLeft="7" click="setTrackingSegment(event)"/>
+					<mx:LinkButton id="removeTrackingPoint" x="227" y="2" fontWeight="bold" label="Remove Tracking Segment" click="removeTrackingSegment(event)"/>
+					<mx:LinkButton x="546" y="2" label="Help"/>
+				</s:BorderContainer>
+				<s:Label x="489" y="71" fontWeight="bold" text="Time Code:"/>
+				<mx:LinkButton x="585" y="65" fontWeight="bold" label="Start" click="setStartTime(event)"/>
+				<s:TextInput id="min_start" x="632" y="64" width="30"
+							 contentBackgroundColor="#549ACB" editable="false" maxChars="2"
+							 restrict="0-9"/>
+				<mx:LinkButton x="735" y="65" fontWeight="bold" label="End" click="activateEndTime(event)"/>
+				<s:TextInput id="min_end" x="777" y="64" width="30" contentBackgroundColor="#549ACB"
+							 editable="false" maxChars="2" restrict="0-9"/>
+				<s:List id="tabListPreview" x="488" y="90" width="604" height="271"
+						contentBackgroundAlpha="0.9" contentBackgroundColor="#549ACB"
+						itemRenderer="views.components.PreviewTabItemRenderer"></s:List>
+				<s:Label x="636" y="51" fontWeight="bold" text="min"/>
+				<s:TextInput id="sec_start" x="674" y="64" width="30"
+							 contentBackgroundColor="#549ACB" editable="false" maxChars="2"
+							 restrict="0-9"/>
+				<s:TextInput id="sec_end" x="819" y="64" width="30" contentBackgroundColor="#549ACB"
+							 editable="false" maxChars="2" restrict="0-9"/>
+				<s:Label x="781" y="51" fontWeight="bold" text="min"/>
+				<s:Label x="677" y="51" fontWeight="bold" text="sec"/>
+				<s:Label x="823" y="51" fontWeight="bold" text="sec"/>
+			</s:Panel>
+			<s:Button id="uploadTrackingPoints_btn" x="1001" y="749" width="152" height="27"
+					  label="Set Tracking Points" click="uploadTrackingPointsHandler(event)"/>
+			<s:Button id="cancel_btn" x="826" y="749" width="152" height="27" label="Cancel Tracking" click="cancelTracking(event)"/>
+		</s:NavigatorContent>
+	</mx:TabNavigator>
+	
+	<!-- Lesson List (Selector) -->
+	<s:Panel id="lp_lessons_panel" x="1237" y="75" width="324" height="798" backgroundAlpha="0.3"
+			 backgroundColor="#549ACB" chromeColor="#549ACB" focusColor="#FFFFFF" title="Lessons">
+		<s:List id="videoList" x="10" y="153" width="300" height="602" chromeColor="#549ACB"
+				contentBackgroundAlpha="0.9" contentBackgroundColor="#549ACB" dragEnabled="true"
+				dropEnabled="false" horizontalScrollPolicy="auto"
+				itemRenderer="views.components.LessonItemRenderer" mouseUp="listItemChange(event)"
+				verticalScrollPolicy="auto"></s:List>
+		<s:Form x="4" y="10" width="306" height="135">
+			<s:TextInput id="lessons_search_input" width="204" change="searchTextChanged(event)"
+						 chromeColor="#549ACB" contentBackgroundAlpha="1.0"
+						 contentBackgroundColor="#549ACB"/>
+			<s:FormItem width="285" label="Category">
+				<s:DropDownList id="category" width="171" chromeColor="#549ACB"
+								click="loadCategories(event)" labelField="category">
+				</s:DropDownList>
+			</s:FormItem>
+			<s:FormItem width="285" label="Details">
+				<s:DropDownList id="details" width="171" change="search(event)" chromeColor="#549ACB"
+								click="loadDetails(event)"></s:DropDownList>
+			</s:FormItem>
+		</s:Form>
+	</s:Panel>
+	<mx:LinkButton x="1483" y="46" label="Logout" click="logout(event)" color="#2A82BF" fontSize="14"
+				   fontWeight="bold"/>
+	
+</s:Group>

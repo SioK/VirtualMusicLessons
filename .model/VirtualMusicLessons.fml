@@ -1,0 +1,746 @@
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="TuserService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">TuserService</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.tuserservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">TuserService</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug/services/TuserService.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug/services/TuserService.php</item>
+      <item name="LINKED_FILE">TuserService.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">TuserService</item>
+    </annotation>
+    <function name="getAllT_user" return-type="T_user[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_userByID" return-type="T_user">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="updateT_user" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_user"/>
+    </function>
+    <function name="deleteT_user" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_user_paged" return-type="T_user[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="startIndex" type="integer"/>
+      <parameter name="numItems" type="integer"/>
+    </function>
+  </service>
+  <service name="LoginService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">LoginService</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.loginservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">LoginService</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug/services/LoginService.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug/services/LoginService.php</item>
+      <item name="LINKED_FILE">LoginService.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">LoginService</item>
+    </annotation>
+    <function name="checkUserCredentials" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_user"/>
+    </function>
+    <function name="getUserByUsername" return-type="T_user">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="string"/>
+    </function>
+  </service>
+  <service name="RegisterService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">RegisterService</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.registerservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">RegisterService</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug/services/RegisterService.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug/services/RegisterService.php</item>
+      <item name="LINKED_FILE">RegisterService.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">RegisterService</item>
+    </annotation>
+    <function name="registerUser" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="user" type="T_user"/>
+    </function>
+  </service>
+  <entity name="T_user" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">T_user</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">TuserService,TuserServiceDummy,LoginService,RegisterService,RegisterServiceDummy,LoginServiceDummy</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="update">updateT_user</item>
+      <item name="get">getT_userByID</item>
+      <item name="delete">deleteT_user</item>
+      <item name="fillFunc">getAllT_user,getT_user_paged</item>
+      <item name="managingService">TuserService</item>
+    </annotation>
+    <annotation name="getT_userByID">
+      <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+    </annotation>
+    <annotation name="getAllT_user">
+      <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+    </annotation>
+    <annotation name="getT_user_paged">
+      <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="countOperation">count</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model.valueObjects</item>
+    </annotation>
+    <annotation name="getUserByUsername">
+      <item name="propertySpecifier">P_User_ID,Username,Mail,Password,Instrument</item>
+    </annotation>
+    <id name="P_User_ID" type="integer"/>
+    <property name="Username" type="string"/>
+    <property name="Mail" type="string"/>
+    <property name="Password" type="string"/>
+    <property name="Instrument" type="string"/>
+  </entity>
+  <service name="TgenreService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">TgenreService1</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.tgenreservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">TgenreService1</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug14/services/TgenreService1.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug14/services/TgenreService1.php</item>
+      <item name="LINKED_FILE">TgenreService1.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">TgenreService1</item>
+    </annotation>
+    <function name="getAllT_genre" return-type="T_genre[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_genreByID" return-type="T_genre">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="createT_genre" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_genre"/>
+    </function>
+    <function name="updateT_genre" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_genre"/>
+    </function>
+    <function name="deleteT_genre" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_genre_paged" return-type="T_genre[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="startIndex" type="integer"/>
+      <parameter name="numItems" type="integer"/>
+    </function>
+  </service>
+  <entity name="T_genre" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">T_genre</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">TgenreService1,TgenreService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="create">createT_genre</item>
+      <item name="update">updateT_genre</item>
+      <item name="get">getT_genreByID</item>
+      <item name="delete">deleteT_genre</item>
+      <item name="fillFunc">getAllT_genre,getT_genre_paged</item>
+      <item name="managingService">TgenreService</item>
+    </annotation>
+    <annotation name="getT_genreByID">
+      <item name="propertySpecifier">P_Genre_ID,Genre</item>
+    </annotation>
+    <annotation name="getAllT_genre">
+      <item name="propertySpecifier">P_Genre_ID,Genre</item>
+    </annotation>
+    <annotation name="getT_genre_paged">
+      <item name="propertySpecifier">P_Genre_ID,Genre</item>
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="countOperation">count</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model.valueObjects</item>
+    </annotation>
+    <id name="P_Genre_ID" type="integer"/>
+    <property name="Genre" type="string"/>
+  </entity>
+  <service name="TinstrumentService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">TinstrumentService1</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.tinstrumentservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">TinstrumentService1</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug14/services/TinstrumentService1.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug14/services/TinstrumentService1.php</item>
+      <item name="LINKED_FILE">TinstrumentService1.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">TinstrumentService1</item>
+    </annotation>
+    <function name="getAllT_instrument" return-type="T_instrument[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_instrumentByID" return-type="T_instrument">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="createT_instrument" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_instrument"/>
+    </function>
+    <function name="updateT_instrument" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_instrument"/>
+    </function>
+    <function name="deleteT_instrument" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_instrument_paged" return-type="T_instrument[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="startIndex" type="integer"/>
+      <parameter name="numItems" type="integer"/>
+    </function>
+  </service>
+  <entity name="T_instrument" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">T_instrument</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">TinstrumentService1,TinstrumentService,TinstrumentServiceDummy</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="create">createT_instrument</item>
+      <item name="update">updateT_instrument</item>
+      <item name="get">getT_instrumentByID</item>
+      <item name="delete">deleteT_instrument</item>
+      <item name="fillFunc">getAllT_instrument,getT_instrument_paged</item>
+      <item name="managingService">TinstrumentService</item>
+    </annotation>
+    <annotation name="getT_instrumentByID">
+      <item name="propertySpecifier">P_Instrument_ID,Instrument</item>
+    </annotation>
+    <annotation name="getAllT_instrument">
+      <item name="propertySpecifier">P_Instrument_ID,Instrument</item>
+    </annotation>
+    <annotation name="getT_instrument_paged">
+      <item name="propertySpecifier">P_Instrument_ID,Instrument</item>
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="countOperation">count</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model.valueObjects</item>
+    </annotation>
+    <id name="P_Instrument_ID" type="integer"/>
+    <property name="Instrument" type="string"/>
+  </entity>
+  <service name="TlessonplanitemService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">TlessonplanitemService</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.tlessonplanitemservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">TlessonplanitemService</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug5/services/TlessonplanitemService.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug5/services/TlessonplanitemService.php</item>
+      <item name="LINKED_FILE">TlessonplanitemService.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">TlessonplanitemService</item>
+    </annotation>
+    <function name="getAllT_lesson_plan_item" return-type="T_lesson_plan_item[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_lesson_plan_itemByID" return-type="T_lesson_plan_item">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="createT_lesson_plan_item" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="lessonItem" type="T_lesson_plan_item"/>
+    </function>
+    <function name="updateT_lesson_plan_item" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="lessonItem" type="T_lesson_plan_item"/>
+    </function>
+    <function name="deleteT_lesson_plan_item" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_lesson_plan_item_paged" return-type="T_lesson_plan_item[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="startIndex" type="integer"/>
+      <parameter name="numItems" type="integer"/>
+    </function>
+    <function name="getAllT_lesson_plan_itemByID" return-type="T_lesson_plan_item[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">t_lesson_plan_item_id,user_id,lesson_id,x_position,y_position,display_index</item>
+      </annotation>
+      <parameter name="user_id" type="opaque"/>
+    </function>
+  </service>
+  <entity name="T_lesson_plan_item" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">T_lesson_plan_item</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">TlessonplanitemService,TlessonplanitemServiceDummy</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="create">createT_lesson_plan_item</item>
+      <item name="update">updateT_lesson_plan_item</item>
+      <item name="get">getT_lesson_plan_itemByID</item>
+      <item name="delete">deleteT_lesson_plan_item</item>
+      <item name="fillFunc">getAllT_lesson_plan_item,getT_lesson_plan_item_paged,getAllT_lesson_plan_itemByID</item>
+      <item name="managingService">TlessonplanitemService</item>
+    </annotation>
+    <annotation name="getT_lesson_plan_itemByID">
+      <item name="propertySpecifier">t_lesson_plan_item_id,user_id,lesson_id,x_position,y_position,display_index</item>
+    </annotation>
+    <annotation name="getAllT_lesson_plan_item">
+      <item name="propertySpecifier">t_lesson_plan_item_id,user_id,lesson_id,x_position,y_position,display_index</item>
+    </annotation>
+    <annotation name="getT_lesson_plan_item_paged">
+      <item name="propertySpecifier">t_lesson_plan_item_id,user_id,lesson_id,x_position,y_position,display_index</item>
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="countOperation">count</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model.valueObjects</item>
+    </annotation>
+    <annotation name="getAllT_lesson_plan_itemByID">
+      <item name="propertySpecifier">t_lesson_plan_item_id,user_id,lesson_id,x_position,y_position,display_index</item>
+    </annotation>
+    <id name="t_lesson_plan_item_id" type="integer"/>
+    <property name="user_id" type="integer"/>
+    <property name="lesson_id" type="integer"/>
+    <property name="x_position" type="integer"/>
+    <property name="y_position" type="integer"/>
+    <property name="display_index" type="integer"/>
+  </entity>
+  <service name="TlessonService">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">TlessonService1</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">model.services.tlessonservice</item>
+      <item name="Endpoint">gateway.php</item>
+      <item name="Destination">TlessonService1</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">PHP</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="PHP_RELATIVE_LOCATION">VirtualMusicLessons-debug20/services/TlessonService1.php</item>
+      <item name="PHP_SERVER_ROOT">C:\xampp\htdocs</item>
+      <item name="DEFAULT_ENTITY_PACKAGE">model.valueObjects</item>
+      <item name="PHP_SERVICES_FOLDER">C:\xampp\htdocs\VirtualMusicLessons-debug\services</item>
+      <item name="PHP_LOCATION">C:/xampp/htdocs/VirtualMusicLessons-debug20/services/TlessonService1.php</item>
+      <item name="LINKED_FILE">TlessonService1.php</item>
+      <item name="PHP_SERVER_ROOT_URL">http://localhost/</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost/VirtualMusicLessons-debug/gateway.php</item>
+      <item name="PHP_CLASS_NAME">TlessonService1</item>
+    </annotation>
+    <function name="getAllT_lesson" return-type="T_lesson[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_lessonByID" return-type="T_lesson">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="createT_lesson" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_lesson"/>
+    </function>
+    <function name="updateT_lesson" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="item" type="T_lesson"/>
+    </function>
+    <function name="deleteT_lesson" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="itemID" type="integer"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getT_lesson_paged" return-type="T_lesson[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">opaque,opaque</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="startIndex" type="integer"/>
+      <parameter name="numItems" type="integer"/>
+    </function>
+  </service>
+  <entity name="T_lesson" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">T_lesson</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">TlessonService1,TlessonService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="create">createT_lesson</item>
+      <item name="update">updateT_lesson</item>
+      <item name="get">getT_lessonByID</item>
+      <item name="delete">deleteT_lesson</item>
+      <item name="fillFunc">getAllT_lesson,getT_lesson_paged</item>
+      <item name="managingService">TlessonService</item>
+    </annotation>
+    <annotation name="getT_lessonByID">
+      <item name="propertySpecifier">P_Lesson_ID,Lesson,Artist,Song,Instrument,Genre,Difficulty,Description,Uploader,Tab_Path,Video1_Path,Video2_Path,Video3_Path,Thumbnail,Track_Path</item>
+    </annotation>
+    <annotation name="getAllT_lesson">
+      <item name="propertySpecifier">P_Lesson_ID,Lesson,Artist,Song,Instrument,Genre,Difficulty,Description,Uploader,Tab_Path,Video1_Path,Video2_Path,Video3_Path,Thumbnail,Track_Path</item>
+    </annotation>
+    <annotation name="getT_lesson_paged">
+      <item name="propertySpecifier">P_Lesson_ID,Lesson,Artist,Song,Instrument,Genre,Difficulty,Description,Uploader,Tab_Path,Video1_Path,Video2_Path,Video3_Path,Thumbnail,Track_Path</item>
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="countOperation">count</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">model.valueObjects</item>
+    </annotation>
+    <id name="P_Lesson_ID" type="integer"/>
+    <property name="Lesson" type="string"/>
+    <property name="Artist" type="string"/>
+    <property name="Song" type="string"/>
+    <property name="Instrument" type="string"/>
+    <property name="Genre" type="string"/>
+    <property name="Difficulty" type="integer"/>
+    <property name="Description" type="string"/>
+    <property name="Uploader" type="string"/>
+    <property name="Tab_Path" type="string"/>
+    <property name="Video1_Path" type="string"/>
+    <property name="Video2_Path" type="string"/>
+    <property name="Video3_Path" type="string"/>
+    <property name="Thumbnail" type="string"/>
+    <property name="Track_Path" type="string"/>
+  </entity>
+</model>

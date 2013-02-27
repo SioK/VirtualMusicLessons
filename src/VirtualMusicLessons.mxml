@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:views="model.views.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   minWidth="955" minHeight="600"
+			   width.ApplicationState="1280" height.ApplicationState="1024"
+			   width.LogInState="934" height.LogInState="557" xmlns:components="views.components.*"
+			   creationComplete="creationComplete_Handler(event)">
+	<fx:Declarations>
+		<!-- Platzieren Sie nichtvisuelle Elemente (z. B. Dienste, Wertobjekte) hier -->
+	</fx:Declarations>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private var facade: ApplicationFacade = ApplicationFacade.getInstance();	
+			
+
+			
+			public function logout():void {
+				var urlRequest:URLRequest = new URLRequest(url);
+				navigateToURL(urlRequest,"_self");
+			}
+			
+			private function creationComplete_Handler(event:Event):void
+			{
+				facade.startup(this);	
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+
+	
+	<s:states>
+		<s:State name="LogInState"/>
+		<s:State name="ApplicationState"/>
+	</s:states>
+	
+	<components:LauncherView id="LauncherView" includeIn="LogInState" x="7" y="10" width="919" height="537">
+	</components:LauncherView>
+	<components:ApplicationView id="ApplicationView" includeIn="ApplicationState" x="7" y="10" width="1555" height="938" >
+	</components:ApplicationView>
+	<s:Label includeIn="ApplicationState" x="1067" y="39"/>
+</s:Application>
+

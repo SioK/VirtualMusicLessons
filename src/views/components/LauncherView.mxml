@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="1680" height="1024" chromeColor="#549ACB"
+		 creationComplete="creationComplete_Handler(event)">
+
+	
+	<fx:Script>
+		<![CDATA[
+			import model.valueObjects.LoginVO;
+			import model.valueObjects.RegisterVO;
+			import model.valueObjects.T_instrument;
+			
+			import mx.controls.Alert;
+			import mx.messaging.AbstractConsumer;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import views.mediators.LauncherMediator;
+
+			
+			[Bindable] public var loginVO:LoginVO = new LoginVO;
+			[Bindable] public var registerVO:RegisterVO = new RegisterVO;
+			private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+			
+			
+			public static const LOGINPRESSED:String = "loginPressed";
+			public static const REGISTERPRESSED:String = "registerPressed";
+			public static const PULLINSTRUMENTS:String = "pullInstruments";
+			public static const VIEW_CREATION_COMPLETE:String = "viewCreationComplete";
+			
+			private function creationComplete_Handler(event:Event):void
+			{
+				facade.registerMediator(new LauncherMediator(this));
+				this.dispatchEvent(new Event(VIEW_CREATION_COMPLETE));
+			}	
+			
+			/**
+			 * löst den Loginprozess aus
+			 * */
+			private function login(event:MouseEvent):void {
+
+					this.dispatchEvent(new Event(LOGINPRESSED));
+			}
+			
+			/**
+			 * löst den Registrierungsprozess aus
+			 * */
+			private function register(event:MouseEvent):void {
+				
+				registerVO.Instrument = (register_instrument_dropdown.selectedItem as T_instrument).Instrument;
+				this.dispatchEvent(new Event(REGISTERPRESSED));					
+			}
+			
+	
+			/**
+			 * lädt die Instrumente für die Registrierungsdropdownlist
+			 * */
+			protected function loadIntruments(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				this.dispatchEvent(new Event(PULLINSTRUMENTS));
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- LOGIN VALIDATORS -->
+		<mx:StringValidator id="login_usernameValidator" minLength="4" maxLength="30" property="text" required="true" source="{login_username_input}"></mx:StringValidator>
+		<mx:StringValidator id="login_passwortValidator" minLength="4" maxLength="30" property="text" required="true" source="{login_password_input}"></mx:StringValidator>
+	
+		<!-- REGISTER VALIDATORS -->
+		<mx:StringValidator id="register_usernameValidator" minLength="4" maxLength="30" property="text" required="true" source="{register_username_input}"></mx:StringValidator>
+		<mx:StringValidator id="register_passwortValidator" minLength="4" maxLength="30" property="text" required="true" source="{register_password_input}"></mx:StringValidator>
+		<mx:EmailValidator id="register_emailValidator" property="text" source="{register_mail_input}"></mx:EmailValidator>
+		<s:NumberValidator id="register_instrumentValidator" property="selectedIndex" minValue="0" source="{register_instrument_dropdown}"></s:NumberValidator>
+		
+	</fx:Declarations>
+
+	<fx:Binding source="login_username_input.text" destination="loginVO.Username"/>
+	<fx:Binding source="login_password_input.text" destination="loginVO.Password"/>
+	
+	<fx:Binding source="register_username_input.text" destination="registerVO.Username"/>
+	<fx:Binding source="register_password_input.text" destination="registerVO.Password"/>
+	<fx:Binding source="register_mail_input.text" destination="registerVO.Mail"/>
+
+	<s:Panel id="loginPane" x="98" y="102" width="364" height="236" backgroundAlpha="0.3"
+			 backgroundColor="#549ACB" contentBackgroundColor="#549ACB" title="Login">
+		<s:TextInput id="login_username_input"  x="20" y="40" width="149"/>
+		<s:TextInput id="login_password_input"  displayAsPassword="true" x="20" y="107" width="149"/>
+		<s:Label id="login_username_label" x="20" y="20" text="Username"/>
+		<s:Label id="login_password_label" x="23" y="87" text="Password"/>
+		<s:Button id="login_btn" x="20" y="139" label="Login" click="login(event)"/>
+		<s:Label id="error_message_username" color="Red" x="177" y="40"/>
+		<s:Label id="error_message_password" color="Red" x="177" y="107"/>
+	</s:Panel>
+	<s:Panel id="registerPane" x="571" y="100" width="316" height="316" backgroundAlpha="0.3"
+			 backgroundColor="#549ACB" contentBackgroundColor="#549ACB" title="Register">
+		<s:TextInput id="register_username_input"  x="119" y="31"/>
+		<s:TextInput id="register_mail_input" x="119" y="75"/>
+		<s:TextInput id="register_password_input"  displayAsPassword="true" x="119" y="121"/>
+		<s:Label id="register_username_label" x="14" y="31" text="Username:"/>
+		<s:Label id="register_mail_label" x="14" y="75" text="E- Mail Adress:"/>
+		<s:Label id="register_password_label" x="14" y="121" text="Password:"/>
+		<s:Label id="register_instrument_label" x="14" y="176" text="Instrument:"/>
+		<s:Button id="register_btn" x="119" y="237" label="Register" click="register(event)"/>
+		<s:DropDownList id="register_instrument_dropdown" x="119" y="176" width="128" labelField="Instrument" activate="loadIntruments(event)"></s:DropDownList>
+	</s:Panel>
+	<s:FormHeading x="29" y="20" label="Virtual Music Lessons" color="#549ACB"/>
+</s:Group>
